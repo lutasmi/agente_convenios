@@ -3,6 +3,5 @@ pandas
 openai
 tiktoken
 langchain==0.0.348
-langchain-openai==0.0.5
 chromadb
 pydantic==1.10.13
