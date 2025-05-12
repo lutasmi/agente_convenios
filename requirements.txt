@@ -2,5 +2,6 @@ streamlit
 pandas
 openai
 tiktoken
-langchain==0.0.350
+langchain
+langchain-openai
 chromadb
