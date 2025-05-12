@@ -5,3 +5,4 @@ tiktoken
 langchain
 langchain-openai
 chromadb
+pydantic==1.10.12
