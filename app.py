@@ -1,7 +1,7 @@
 import streamlit as st
-from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
-from langchain.chat_models import ChatOpenAI
+from langchain.llms import OpenAI
 from langchain.chains import RetrievalQA
 import os
 
@@ -16,17 +16,18 @@ if not api_key:
     st.warning("Por favor, introduce tu clave API de OpenAI para continuar.")
     st.stop()
 
-# Inicializamos embeddings
+# Inicializamos embeddings y LLM
 os.environ["OPENAI_API_KEY"] = api_key
 embeddings = OpenAIEmbeddings()
+llm = OpenAI(temperature=0)
 
-# Cargar base vectorial (ya preprocesada)
+# Cargar base vectorial persistente
 persist_directory = "vectorstore"
 db = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
 
 # Crear el agente QA
 retriever = db.as_retriever(search_kwargs={"k": 3})
-qa = RetrievalQA.from_chain_type(llm=ChatOpenAI(temperature=0), retriever=retriever, return_source_documents=True)
+qa = RetrievalQA.from_chain_type(llm=llm, retriever=retriever, return_source_documents=True)
 
 # Campo de pregunta
 query = st.text_input("✍️ Escribe tu pregunta:")

@@ -1,7 +1,7 @@
 streamlit
 pandas
 openai
-tiktoken
-langchain==0.0.348
+langchain==0.0.280
 chromadb
 pydantic==1.10.13
+tiktoken
